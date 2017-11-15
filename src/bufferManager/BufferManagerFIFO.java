@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 public class BufferManagerFIFO {
 private  LinkedList<String> bufferPool = new LinkedList<>();
-private int cursorFirstIn = 0;
+// private int cursorFirstIn = 0;
 
 private static int nbOperation = 0;	
 private static int fetch = 0;
@@ -13,7 +13,7 @@ private static long stop;
 	public void insertFrameinBufferPool(String [] workload) {
 		start = System.currentTimeMillis();
 		
-		for (String page : workload) {
+		/*for (String page : workload) {
 			if(cursorFirstIn % 4 == 0)
 				cursorFirstIn = 0;
 			
@@ -33,6 +33,25 @@ private static long stop;
 				}
 			}
 			
+			System.out.println(this.toString());
+		} 
+		*/
+		
+		for (String page : workload) {
+			if(bufferPool.size() < 4 ) {
+				if(!bufferPool.contains(page)) {
+					bufferPool.add(page);
+					fetch++;
+					nbOperation++;
+				}
+			}else{
+				if(!bufferPool.contains(page)) {
+					bufferPool.removeFirst();
+					bufferPool.add(page);
+					fetch++;
+					nbOperation++;
+				}
+			}
 			System.out.println(this.toString());
 		}
 		stop = System.currentTimeMillis();
