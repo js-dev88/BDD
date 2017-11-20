@@ -65,7 +65,46 @@ public class Btree {
 			n.getNode().put(k, null);
 			return true;
 		}
+
 		else{
+			n.getNode().put(k, null);
+			Node root = new Node(this.order);
+			tree.addFirst(root);
+			Node split = new Node(this.order);
+			tree.add(tree.indexOf(n)+1,split);
+			
+			int compt = 0;
+			for(Integer i: n.getNode().keySet()){
+				if (compt == order/2+1){
+					root.getNode().put(i, n.getNode().get(i));
+				}
+				if (compt > order/2+1){
+					split.getNode().put(i, n.getNode().get(i));
+				}
+				compt++;
+				
+			}
+			
+
+
+			
+			for (Integer i : root.getNode().keySet()){
+				if (i != -1){
+					n.getNode().remove(i);
+				}
+				
+			}
+			
+			for (Integer i : split.getNode().keySet()){
+				if (i != -1){
+					n.getNode().remove(i);
+				}
+				
+			}
+			
+			root.addReassemble();
+			split.addReassemble();
+			return true;
 			
 		}
 		

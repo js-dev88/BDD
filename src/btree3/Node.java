@@ -10,6 +10,7 @@ public class Node {
 	public Node(int m) {
 		order = m;
 		node = new TreeMap<>();
+		node.put(-1, null);
 	}
 	
 	public boolean isLeaf(){
@@ -22,12 +23,19 @@ public class Node {
 	}
 	
 	public Node addReassemble() {
-		this.getNode().put(-1,null);
-		for(Node n : this.getNode().values()) {
-			for(Integer i : this.getNode().keySet()) {
-				this.getNode().put(i, n);
+//		this.getNode().put(-1,null);
+		int tmp = -1;
+		for(Integer n : this.getNode().keySet()){
+			if(n != -1){
+				this.getNode().put(tmp, this.getNode().get(n));
+				tmp = n;
 			}
 		}
+//		for(Node n : this.getNode().values()) {
+//			for(Integer i : this.getNode().keySet()) {
+//				this.getNode().put(i, n);
+//			}
+//		}
 		return this;
 	}
 	
