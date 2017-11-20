@@ -21,6 +21,16 @@ public class Node {
 		return true;
 	}
 	
+	public Node addReassemble() {
+		this.getNode().put(-1,null);
+		for(Node n : this.getNode().values()) {
+			for(Integer i : this.getNode().keySet()) {
+				this.getNode().put(i, n);
+			}
+		}
+		return this;
+	}
+	
 	@Override
 	public String toString() {
 		String s = "[";

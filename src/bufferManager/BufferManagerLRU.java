@@ -3,28 +3,28 @@ import java.util.LinkedList;
 
 public class BufferManagerLRU {
 	
-	private  LinkedList<String> bufferPool = new LinkedList<>();
+	private  LinkedList<String> bufferPool = new LinkedList<>(); //liste chaînée représentant la RAM, prenant au max 4 éléments
 	
-	private static int nbOperation = 0;
-	private static int fetch = 0;
+	private static int nbOperation = 0; // nombre de fois qu'une opération est effectuée 
+	private static int fetch = 0; // nombre de fois qu'une nouvelle page est insérée dans la RAM (nb de page misses)
 	private static long start;
     private static long stop;
     
 	public void insertFrameinBufferPool(String [] workload) {
 		
-		start = System.currentTimeMillis();
+		start = System.currentTimeMillis(); // pour compter le temps d'exécution
 		
 		for (String page : workload) {
-			if(bufferPool.size() < 4 ) {
-				if(!bufferPool.contains(page)) {
+			if(bufferPool.size() < 4 ) { // s'il reste de la place dans la RAM
+				if(!bufferPool.contains(page)) { //si la page à insérer n'est pas encore dans la RAM
 					bufferPool.addFirst(page);
 					fetch++;
 				}else{
 					bufferPool.remove(page);
 					bufferPool.addFirst(page);
-				}
-			}else{
-				if(!bufferPool.contains(page)) {
+				} 
+			}else{ // si la RAM est pleine
+				if(!bufferPool.contains(page)) { // si la page à insérer n'est pas déjà dans la RAM
 					bufferPool.removeLast();
 					bufferPool.addFirst(page);
 					fetch++;
@@ -50,7 +50,7 @@ public class BufferManagerLRU {
 	}
 	
 	public void getNbOperation(){
-		System.out.println("Nombre d'op�rations : " + BufferManagerLRU.nbOperation);
+		System.out.println("Nombre d'operations : " + BufferManagerLRU.nbOperation);
 	}
 	
 	public void getExecutionTime(){

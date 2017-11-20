@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 
 public class BufferManagerClock {
-	private  HashMap<String,Boolean> bufferPool = new HashMap<>();
-	private  HashMap<Integer,String> flagHandler = new HashMap<>();
-	private int clockCursor = 0;
+	private  HashMap<String,Boolean> bufferPool = new HashMap<>(); // récupère l'info A=>false
+	private  HashMap<Integer,String> flagHandler = new HashMap<>();//récupère la position : 1=>A
+	private int clockCursor = 0; //aiguille
 	
 	private static int nbOperation = 0;
 	private static int fetch = 0;
@@ -21,25 +21,25 @@ public class BufferManagerClock {
 		
 		for (String page : workload) {
 			
-			if(bufferPool.size() < 4 ) {
+			if(bufferPool.size() < 4 ) { //Au départ on insère la lettre dans les espaces disponbiles
 				if(!bufferPool.containsKey(page)) {
 					bufferPool.put(page,false);
 					flagHandler.put(j++,page);
 					fetch++;
 				}else{
-					bufferPool.put(page,true);
+					bufferPool.put(page,true);//Si la lettre est présente, on passe le flag à true
 				}
 			}else{
-				if(!bufferPool.containsKey(page)) {
+				if(!bufferPool.containsKey(page)) {// Si le bufferpOOL EST PLEIN,
 					
-					while(bufferPool.get(flagHandler.get(clockCursor)) != false){
+					while(bufferPool.get(flagHandler.get(clockCursor)) != false){ //Le curseur cherche le premier slot avec un flag à flase, et passe les flags true à false
 						
 						bufferPool.put(flagHandler.get(clockCursor),false);
 						clockCursor++;
 						if(clockCursor % 4 == 0)
 							clockCursor = 0;
 					}
-						bufferPool.remove(flagHandler.get(clockCursor));
+						bufferPool.remove(flagHandler.get(clockCursor));// lorsque le curseur a trouver le slot il remplace l'élément
 						flagHandler.put(clockCursor,page);
 						bufferPool.put(page,false);
 						clockCursor++;
@@ -67,7 +67,7 @@ public class BufferManagerClock {
 	}
 	
 	public void getNbOperation(){
-		System.out.println("Nombre d'op�rations : " + BufferManagerClock.nbOperation);
+		System.out.println("Nombre d'operations : " + BufferManagerClock.nbOperation);
 	}
 	
 	public void getExecutionTime(){

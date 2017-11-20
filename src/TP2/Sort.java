@@ -17,11 +17,11 @@ public class Sort {
 	private static int countOfFile = 0;
 	
 	
-	public static String readFile() throws Exception {
+	public static String readFile(String nomFile) throws Exception {
 		String concat = "";
 		//System.out.println(System.getProperty("user.dir"));
 		try {
-			InputStream flux = new FileInputStream("src/TP2/inpdata.txt");
+			InputStream flux = new FileInputStream("src/TP2/"+nomFile);
 			InputStreamReader lecture = new InputStreamReader(flux);
 			BufferedReader buff = new BufferedReader(lecture);
 			String ligne;
@@ -48,7 +48,7 @@ public class Sort {
 		    try {
 		        // Creation du fichier
 		        fichier .createNewFile();
-		        // creation d'un writer (un écrivain)
+		        // creation d'un writer (un ï¿½crivain)
 		        final FileWriter writer = new FileWriter(fichier);
 		        try {
 		            writer.write("ceci est un texte\n");
@@ -64,25 +64,27 @@ public class Sort {
 	
 	}
 	
-	public static void createFile(int[] intArray){
-		Arrays.sort(intArray);
-		File f = new File("fichier"+countOfFile+".txt");
-			try
-			{
-				
-				BufferedWriter writer = new BufferedWriter(new FileWriter(f));
-				// normalement si le fichier n'existe pas, il est crée à la racine du
-				// projet
-				writer.write("test");
-	
-				writer.close();
-			}catch(
-			IOException e)
-			{
-				e.printStackTrace();
+	public static void createFile(String file, int nbPage, int nbParPage) throws Exception{
+		String fichier = Sort.readFile(file);
+		System.out.println(fichier);
+		String[] tableauNombre = fichier.split(" ");
+		int[][] page = new int[nbPage][nbParPage];
+		int mark =0;
+		
+		for(int i = 0; i < nbPage; i++) {
+			for(int j=0; j< nbParPage; j++) {
+				page[i][j] = Integer.parseInt(tableauNombre[mark++]);
 			}
-			countOfFile++;
-			//deleteFile(f);
+			Arrays.sort(page[i]);
+		}
+		for(int i = 0; i < nbPage; i++) {
+			for(int j=0; j< nbParPage; j++) {
+				System.out.println(page[i][j]); 
+			}
+			Arrays.sort(page[i]);
+		}
+		
+		
 	}
 	
 	public static void deleteFile(File f){

@@ -9,18 +9,18 @@ public class Main {
 		System.out.println("----------------------------------\n");
 		
 		//Ex1
-		String workload[] = {"A","B","C","D","E","A","B","C","D","E"};
+		//String workload[] = {"A","B","C","D","E","A","B","C","D","E"};
 		//Ex 2
-		//String workload[] = {"A","B","C","D","A","A","G","A","F","A"};
-		//Ex 3 test 200 accès
+		//String workload[] = {"A","B","C","D","A","G","A","F","A","D","B","C","D","A","A","G","A","A","F","A","G","A","F","A","D","B","B","C","D","A"};
+		//Ex 3 test 200 accï¿½s
+		//EX 4
+		String workload[] = {"A","B","C","D","A","E","A"};
 		//String workload[] = {"A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D","A","B","C","D","A","E","A","B","C","D"};
 		//
 		BufferManagerLRU bfmLRU = new BufferManagerLRU();
 		
 		bfmLRU.insertFrameinBufferPool(workload);
-		bfmLRU.getNbOperation();
-		bfmLRU.getExecutionTime();
-		bfmLRU.getFetch();
+
 		
 		System.out.println("----------------------------------");
 		System.out.println("-----------TESTS FIFO-------------");
@@ -32,9 +32,9 @@ public class Main {
 		bfmFIFO.getExecutionTime();
 		bfmFIFO.getFetch();
 		
-		//ex 1 / 2 Nb opérations => LRU plus coûteux en opérations
-		//ex 3 200 rez temps d'execution => pas cohérent / les algos ne sont pas les mêmes
-		//ex 2 FIFO nombre de fetch > LRU => plus pertinant si on accède plusieurs fois à la même page => justifie "une page peu consultée est susceptible d'être appelée moins souvent"
+		//ex 1 / 2 Nb opï¿½rations => LRU plus coï¿½teux en opï¿½rations
+		//ex 3 200 rez temps d'execution => pas cohï¿½rent / les algos ne sont pas les mï¿½mes
+		//ex 2 FIFO nombre de fetch > LRU => plus pertinant si on accï¿½de plusieurs fois ï¿½ la mï¿½me page => justifie "une page peu consultï¿½e est susceptible d'ï¿½tre appelï¿½e moins souvent"
 		//ex 2 illustration du "It will be written back to disk, only to be reread shortly thereafter into another buffer."
 		
 		System.out.println("----------------------------------");
@@ -45,6 +45,19 @@ public class Main {
 		//String workloadClock[] = {"2","3","2","1","5","2","4","5","3","2","4","5","3","2","4","5","3","2","5","2"};
 		BufferManagerClock bfmClock = new BufferManagerClock();
 		bfmClock.insertFrameinBufferPool(workload);
+		
+		
+		System.out.println("-----------TESTS LRU--------------");
+		bfmLRU.getNbOperation();
+		bfmLRU.getExecutionTime();
+		bfmLRU.getFetch();
+		
+		System.out.println("-----------TESTS FIFO-------------");
+		bfmFIFO.getNbOperation();
+		bfmFIFO.getExecutionTime();
+		bfmFIFO.getFetch();
+		
+		System.out.println("-----------TESTS CLOCK-------------");
 		bfmClock.getNbOperation();
 		bfmClock.getExecutionTime();
 		bfmClock.getFetch();

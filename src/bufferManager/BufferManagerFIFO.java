@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 public class BufferManagerFIFO {
 private  LinkedList<String> bufferPool = new LinkedList<>();
-// private int cursorFirstIn = 0;
+
 
 private static int nbOperation = 0;	
 private static int fetch = 0;
@@ -13,44 +13,21 @@ private static long stop;
 	public void insertFrameinBufferPool(String [] workload) {
 		start = System.currentTimeMillis();
 		
-		/*for (String page : workload) {
-			if(cursorFirstIn % 4 == 0)
-				cursorFirstIn = 0;
 			
-			if(bufferPool.size() < 4 ) {
-				if(!bufferPool.contains(page)) {
-					bufferPool.add(page);
-					nbOperation++;
-					fetch++;
-				}
-			}else{
-				if(!bufferPool.contains(page)) {
-					bufferPool.remove(cursorFirstIn);
-					bufferPool.add(cursorFirstIn,page);
-					cursorFirstIn++;
-					nbOperation++;
-					fetch++;
-				}
-			}
-			
-			System.out.println(this.toString());
-		} 
-		*/
-		
 		for (String page : workload) {
-			if(bufferPool.size() < 4 ) {
-				if(!bufferPool.contains(page)) {
+			if(bufferPool.size() < 4 ) { //Si le bufferPool n'est pas rempli
+				if(!bufferPool.contains(page)) { //Si le bufferpool ne contient la page
 					bufferPool.add(page);
 					fetch++;
 					nbOperation++;
-				}
+				}//sinon on ne fait rien
 			}else{
-				if(!bufferPool.contains(page)) {
+				if(!bufferPool.contains(page)) {//Si le bufferpool ne contient la page
 					bufferPool.removeFirst();
 					bufferPool.add(page);
 					fetch++;
 					nbOperation++;
-				}
+				}//sinon on ne fait rien
 			}
 			System.out.println(this.toString());
 		}
@@ -67,7 +44,7 @@ private static long stop;
 	}
 	
 	public void getNbOperation(){
-		System.out.println("Nombre d'opérations : " + BufferManagerFIFO.nbOperation);
+		System.out.println("Nombre d'operations : " + BufferManagerFIFO.nbOperation);
 	}
 	
 	public void getExecutionTime(){
