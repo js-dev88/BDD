@@ -4,13 +4,14 @@ import java.util.TreeMap;
 
 public class Node {
 	private TreeMap<Integer, Node> node;
-	int order;
-//	int h;
+	private int order;
+	private int h ;
 	
-	public Node(int m) {
+	public Node(int m, int h) {
 		order = m;
 		node = new TreeMap<>();
 		node.put(-1, null);
+		this.h = h;
 	}
 	
 	public boolean isLeaf(){
@@ -31,11 +32,6 @@ public class Node {
 				tmp = n;
 			}
 		}
-//		for(Node n : this.getNode().values()) {
-//			for(Integer i : this.getNode().keySet()) {
-//				this.getNode().put(i, n);
-//			}
-//		}
 		return this;
 	}
 	
@@ -72,5 +68,13 @@ public class Node {
 
 	public void setOrder(int order) {
 		this.order = order;
+	}
+	
+	public int getH() {
+		return h;
+	}
+	
+	public void setH(int h) {
+		this.h = h;
 	}
 }
